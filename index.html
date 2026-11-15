@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orby Investimentos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0B1426; --navy-2:#111D35; --card:#15223D;
+    --green:#21D19F; --gold:#E9C46A; --text:#E8EDF5; --muted:#8C9AB3;
+    --line:rgba(255,255,255,.08);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--navy);color:var(--text);line-height:1.6}
+  h1,h2,h3,.brand{font-family:'Sora',sans-serif}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+
+  /* NAV */
+  nav{position:sticky;top:0;z-index:10;background:rgba(11,20,38,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .brand{display:flex;align-items:center;gap:12px;font-weight:700;font-size:1.3rem;letter-spacing:.04em}
+  .brand small{display:block;font-weight:300;font-size:.62rem;letter-spacing:.28em;color:var(--muted)}
+  .links{display:flex;gap:32px;font-size:.92rem;color:var(--muted)}
+  .links a:hover{color:var(--text)}
+  .btn{display:inline-block;padding:12px 24px;border-radius:10px;font-weight:600;font-size:.92rem;transition:.2s;border:none;cursor:pointer;font-family:inherit}
+  .btn-primary{background:var(--green);color:var(--navy)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(33,209,159,.3)}
+  .btn-ghost{border:1px solid var(--line);color:var(--text)}
+  .btn-ghost:hover{border-color:var(--green)}
+
+  /* HERO */
+  .hero{padding:110px 0 90px;position:relative;overflow:hidden}
+  .hero::before{content:"";position:absolute;width:700px;height:700px;right:-200px;top:-200px;background:radial-gradient(circle,rgba(33,209,159,.14),transparent 65%)}
+  .hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center;position:relative}
+  .tag{display:inline-block;padding:6px 14px;border:1px solid rgba(33,209,159,.35);border-radius:99px;color:var(--green);font-size:.8rem;margin-bottom:24px}
+  .hero h1{font-size:clamp(2.3rem,5vw,3.6rem);line-height:1.1;margin-bottom:22px}
+  .hero h1 span{color:var(--green)}
+  .hero p{color:var(--muted);font-size:1.1rem;max-width:520px;margin-bottom:36px}
+  .cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .chart-card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px}
+  .chart-card .top{display:flex;justify-content:space-between;margin-bottom:18px;font-size:.85rem;color:var(--muted)}
+  .chart-card .top b{color:var(--green);font-family:'Sora',sans-serif}
+  .pills{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
+  .pill{font-size:.75rem;padding:5px 12px;border-radius:99px;background:var(--navy-2);color:var(--muted)}
+
+  /* SECTIONS */
+  section{padding:90px 0}
+  .head{text-align:center;max-width:620px;margin:0 auto 56px}
+  .head .eyebrow{color:var(--green);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase}
+  .head h2{font-size:clamp(1.8rem,3.5vw,2.5rem);margin:10px 0 14px}
+  .head p{color:var(--muted)}
+  .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:30px;transition:.25s}
+  .card:hover{border-color:rgba(33,209,159,.4);transform:translateY(-4px)}
+  .icon{width:48px;height:48px;border-radius:12px;background:rgba(33,209,159,.12);display:grid;place-items:center;margin-bottom:20px;font-size:1.4rem}
+  .card h3{font-size:1.15rem;margin-bottom:8px}
+  .card p{color:var(--muted);font-size:.93rem}
+
+  .alt{background:var(--navy-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+  .step .n{font-family:'Sora',sans-serif;font-size:2.6rem;font-weight:700;color:transparent;-webkit-text-stroke:1px var(--green)}
+  .step h3{margin:6px 0 8px}
+  .step p{color:var(--muted);font-size:.95rem}
+
+  /* BOT */
+  .bot{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+  .bot h2{font-size:clamp(1.8rem,3.5vw,2.5rem);margin:12px 0 16px}
+  .bot p{color:var(--muted);margin-bottom:22px}
+  .bot ul{list-style:none;margin-bottom:28px}
+  .bot li{padding:8px 0 8px 30px;position:relative;color:var(--text)}
+  .bot li::before{content:"✓";position:absolute;left:0;color:var(--green);font-weight:700}
+  .soon{color:var(--gold);border-color:rgba(233,196,106,.4)}
+  .terminal{background:#070D1A;border:1px solid var(--line);border-radius:16px;padding:22px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem}
+  .terminal .dots{display:flex;gap:6px;margin-bottom:16px}
+  .terminal .dots i{width:10px;height:10px;border-radius:50%;background:#2A3754}
+  .terminal .g{color:var(--green)} .terminal .y{color:var(--gold)} .terminal .m{color:var(--muted)}
+  form.wait{display:flex;gap:10px;flex-wrap:wrap}
+  input,textarea{flex:1;min-width:200px;background:var(--navy);border:1px solid var(--line);border-radius:10px;padding:13px 16px;color:var(--text);font-family:inherit;font-size:.95rem}
+  input:focus,textarea:focus{outline:none;border-color:var(--green)}
+
+  /* TEAM */
+  .team{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .member{text-align:center}
+  .avatar{width:96px;height:96px;border-radius:50%;margin:0 auto 18px;background:linear-gradient(135deg,var(--green),#1A6FD1);display:grid;place-items:center;font-family:'Sora',sans-serif;font-weight:700;font-size:1.6rem;color:var(--navy)}
+  .member span{color:var(--muted);font-size:.9rem}
+
+  /* CONTACT */
+  .contact{max-width:640px;margin:0 auto;display:grid;gap:14px}
+  .contact textarea{min-height:130px;resize:vertical}
+  .msg{color:var(--green);text-align:center;display:none}
+
+  footer{border-top:1px solid var(--line);padding:40px 0;color:var(--muted);font-size:.82rem}
+  footer .wrap{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;align-items:flex-start}
+  footer .disc{max-width:640px}
+
+  @media(max-width:900px){
+    .hero .wrap,.bot{grid-template-columns:1fr}
+    .grid4{grid-template-columns:1fr 1fr}
+    .steps,.team{grid-template-columns:1fr}
+    .links{display:none}
+  }
+  @media(max-width:560px){.grid4{grid-template-columns:1fr}}
+
+  /* ===== MOVIMENTO ===== */
+  #progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,#1A6FD1,var(--green),var(--gold));z-index:50}
+  .hero::before{animation:blob 12s ease-in-out infinite alternate}
+  @keyframes blob{0%{transform:translate(0,0) scale(1)}100%{transform:translate(-120px,80px) scale(1.25)}}
+  .orbits{position:absolute;right:-180px;top:50%;width:760px;height:760px;transform:translateY(-50%);pointer-events:none}
+  .ring{position:absolute;inset:0;margin:auto;border:1px solid rgba(33,209,159,.13);border-radius:50%;animation:spin linear infinite}
+  .ring::after{content:"";position:absolute;top:50%;left:-5px;width:10px;height:10px;border-radius:50%;background:var(--gold);box-shadow:0 0 18px var(--gold)}
+  .r1{width:760px;height:760px;animation-duration:40s}
+  .r2{width:540px;height:540px;animation-duration:26s;animation-direction:reverse;border-color:rgba(26,111,209,.2)}
+  .r2::after{background:var(--green);box-shadow:0 0 18px var(--green)}
+  .r3{width:320px;height:320px;animation-duration:16s}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  .split i{display:inline-block;font-style:normal;opacity:0;transform:translateY(40px) rotate(4deg);animation:word .8s cubic-bezier(.2,.8,.2,1) forwards}
+  @keyframes word{to{opacity:1;transform:none}}
+  .hero .tag,.hero p,.hero .cta{opacity:0;animation:fadeUp .9s ease forwards}
+  .hero .tag{animation-delay:.1s}.hero p{animation-delay:1s}.hero .cta{animation-delay:1.25s}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+  .hero h1 span i{background:linear-gradient(90deg,var(--green),#5BE7C4,var(--gold),var(--green));background-size:300%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:word .8s cubic-bezier(.2,.8,.2,1) forwards,grad 6s linear infinite}
+  @keyframes grad{to{background-position:300% 0}}
+
+  .chart-card{animation:float 6s ease-in-out infinite;box-shadow:0 30px 80px rgba(0,0,0,.35)}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+  .line{stroke-dasharray:1000;stroke-dashoffset:1000;animation:draw 2.6s .6s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  .area{opacity:0;animation:fadeIn 1.2s 2.4s forwards}
+  @keyframes fadeIn{to{opacity:1}}
+  .pulse-dot{transform-box:fill-box;transform-origin:center;animation:pulse 1.8s ease-in-out infinite}
+  .live{display:flex;align-items:center;gap:8px;font-size:.8rem;color:var(--muted);margin:-6px 0 10px}
+  .live b{margin-left:auto;font-family:'Sora',sans-serif;font-size:1.6rem;color:var(--green)}
+  .live-dot{width:8px;height:8px;border-radius:50%;background:#FF5C5C;animation:pulse 1.2s infinite}
+  @keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.7);opacity:.5}}
+
+  .ticker{overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--navy-2);padding:16px 0}
+  .track{display:flex;gap:56px;width:max-content;animation:scroll 32s linear infinite;font-family:'Sora',sans-serif;font-weight:600;letter-spacing:.06em;color:var(--muted);white-space:nowrap}
+  .track span:nth-child(odd){color:var(--text)}
+  .ticker:hover .track{animation-play-state:paused}
+  @keyframes scroll{to{transform:translateX(-50%)}}
+
+  .reveal{opacity:0;transform:translateY(50px) scale(.97);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.8,.2,1)}
+  .reveal.show{opacity:1;transform:none}
+  .card{position:relative;overflow:hidden}
+  .card::before{content:"";position:absolute;inset:0;background:radial-gradient(400px circle at var(--mx,50%) var(--my,50%),rgba(33,209,159,.14),transparent 45%);opacity:0;transition:.3s}
+  .card:hover::before{opacity:1}
+  .card.reveal.show:hover{transform:translateY(-6px)}
+  .card:hover .icon{animation:bounce .6s}
+  @keyframes bounce{0%,100%{transform:translateY(0)}40%{transform:translateY(-10px) rotate(-8deg)}70%{transform:translateY(-4px) rotate(4deg)}}
+  .step .n{transition:.4s}
+  .step:hover .n{color:var(--green);text-shadow:0 0 30px rgba(33,209,159,.5)}
+
+  .shine{position:relative;overflow:hidden}
+  .shine::after{content:"";position:absolute;top:0;left:-80%;width:50%;height:100%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);animation:shine 3.5s infinite}
+  @keyframes shine{0%,60%{left:-80%}100%{left:130%}}
+
+  .terminal .t-line{opacity:0;transform:translateX(-10px);transition:.4s}
+  .terminal .t-line.on{opacity:1;transform:none}
+  .terminal .cursor{display:inline-block;width:8px;height:15px;background:var(--green);vertical-align:middle;animation:blink 1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+
+  .contact{display:flex;flex-direction:column;gap:18px}
+  .wa-big{display:flex;align-items:center;gap:18px;padding:22px 26px;border-radius:16px;background:linear-gradient(135deg,#1FAF7E,#21D19F);color:var(--navy);transition:.3s;box-shadow:0 12px 40px rgba(33,209,159,.25)}
+  .wa-big:hover{transform:translateY(-4px) scale(1.01);box-shadow:0 20px 60px rgba(33,209,159,.4)}
+  .wa-big .wa-ico{font-size:2rem;animation:wiggle 2.5s infinite}
+  .wa-big b{display:block;font-family:'Sora',sans-serif;font-size:1.2rem}
+  .wa-big small{font-size:.95rem;opacity:.8}
+  .wa-big .arrow{margin-left:auto;font-size:1.6rem;transition:.3s}
+  .wa-big:hover .arrow{transform:translateX(8px)}
+  @keyframes wiggle{0%,80%,100%{transform:rotate(0)}85%{transform:rotate(-15deg)}90%{transform:rotate(15deg)}95%{transform:rotate(-8deg)}}
+  .or{text-align:center;color:var(--muted);font-size:.9rem}
+  #waForm{display:grid;gap:14px}
+  #waForm textarea{min-height:120px;resize:vertical}
+
+  .wa-float{position:fixed;right:22px;bottom:22px;z-index:40;display:flex;align-items:center;gap:10px;background:var(--green);color:var(--navy);font-weight:700;padding:14px 18px;border-radius:99px;font-size:1.3rem;box-shadow:0 10px 30px rgba(33,209,159,.4);transition:.3s}
+  .wa-float span{font-size:.9rem;max-width:0;overflow:hidden;white-space:nowrap;transition:.4s}
+  .wa-float:hover span{max-width:140px}
+  .wa-float::before{content:"";position:absolute;inset:0;border-radius:99px;border:2px solid var(--green);animation:ping 2s infinite}
+  @keyframes ping{0%{transform:scale(1);opacity:.8}100%{transform:scale(1.5);opacity:0}}
+
+  @media(max-width:900px){.orbits{right:-380px;opacity:.6}}
+  @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.reveal,.split i,.hero .tag,.hero p,.hero .cta,.terminal .t-line{opacity:1!important;transform:none!important}.line{stroke-dashoffset:0}.area{opacity:1}}
+  .hero-wa{display:inline-flex;flex-direction:column;align-items:flex-start;padding:14px 26px;font-size:1.05rem}
+  .hero-wa small{font-weight:500;font-size:.78rem;opacity:.75}
+</style>
+</head>
+<body>
+
+<!-- LOGO reutilizável -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient id="vg" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#1A6FD1"/>
+      <stop offset="1" stop-color="#21D19F"/>
+    </linearGradient>
+    <symbol id="logo" viewBox="0 0 48 48">
+      <rect x="1" y="1" width="46" height="46" rx="12" fill="#15223D" stroke="rgba(255,255,255,.1)"/>
+      <!-- "O" central com uma órbita inclinada subindo e um ponto dourado -->
+      <ellipse cx="24" cy="24" rx="18" ry="6.5" transform="rotate(-30 24 24)" fill="none" stroke="rgba(233,196,106,.55)" stroke-width="1.6"/>
+      <circle cx="24" cy="24" r="10" fill="none" stroke="url(#vg)" stroke-width="4"/>
+      <g transform="rotate(-30 24 24)"><circle r="3.2" fill="#E9C46A"><animateMotion dur="6s" repeatCount="indefinite" path="M42 24 A18 6.5 0 1 1 6 24 A18 6.5 0 1 1 42 24"/></circle></g>
+    </symbol>
+  </defs>
+</svg>
+
+<div id="progress"></div>
+<a class="wa-float" href="https://wa.me/447385129731" target="_blank" rel="noopener" aria-label="WhatsApp">💬<span>WhatsApp</span></a>
+
+<nav>
+  <div class="wrap">
+    <a href="#" class="brand">
+      <svg width="42" height="42"><use href="#logo"/></svg>
+      <div>ORBY<small>INVESTIMENTOS</small></div>
+    </a>
+    <div class="links">
+      <a href="#servicos">Serviços</a>
+      <a href="#como">Como funciona</a>
+      <a href="#bot">Orby Bot</a>
+    </div>
+    <a href="https://wa.me/447385129731" target="_blank" rel="noopener" class="btn btn-primary shine">Fale conosco</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="orbits"><span class="ring r1"></span><span class="ring r2"></span><span class="ring r3"></span></div>
+  <div class="wrap">
+    <div>
+      <span class="tag">● Análise independente baseada em dados</span>
+      <h1 class="split"><i>Seus</i> <i>investimentos</i> <i>na</i> <span><i>órbita</i> <i>certa</i></span><i>.</i></h1>
+      <p>Análises de ações, ETFs, criptoativos e fundos imobiliários com método, transparência e tecnologia. Tudo gira em torno dos seus objetivos.</p>
+      <div class="cta">
+        <a href="https://wa.me/447385129731?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20a%20Orby%20Investimentos." target="_blank" rel="noopener" class="btn btn-primary shine hero-wa">💬 Entrar no WhatsApp<small>+44 7385 129731</small></a>
+        <a href="#bot" class="btn btn-ghost">Conhecer o Bot →</a>
+      </div>
+    </div>
+    <div class="chart-card">
+      <div class="top"><span>Carteira modelo · 12 meses</span><b>Exemplo ilustrativo</b></div>
+      <div class="live"><span class="live-dot"></span> simulação <b id="pct">+0,0%</b></div>
+      <svg viewBox="0 0 400 180" width="100%" id="liveChart">
+        <defs>
+          <linearGradient id="area" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#21D19F" stop-opacity=".35"/>
+            <stop offset="1" stop-color="#21D19F" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <g stroke="rgba(255,255,255,.06)"><line x1="0" y1="45" x2="400" y2="45"/><line x1="0" y1="90" x2="400" y2="90"/><line x1="0" y1="135" x2="400" y2="135"/></g>
+        <path id="lcArea" fill="url(#area)"/>
+        <path id="lcLine" fill="none" stroke="#21D19F" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+        <circle id="lcDot" r="5" fill="#E9C46A" class="pulse-dot"/>
+      </svg>
+      <div class="pills"><span class="pill">Ações</span><span class="pill">ETFs</span><span class="pill">Cripto</span><span class="pill">FIIs</span></div>
+    </div>
+  </div>
+</header>
+
+<section id="servicos">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">O que analisamos</span>
+      <h2>Quatro mercados, uma só órbita</h2>
+      <p>Cada classe de ativo tem sua lógica. Nossa análise respeita essas diferenças sem perder a visão do todo.</p>
+    </div>
+    <div class="grid4">
+      <div class="card"><div class="icon">📈</div><h3>Ações</h3><p>Análise fundamentalista e técnica de empresas da B3 e do exterior, com valuation e cenários.</p></div>
+      <div class="card"><div class="icon">🧺</div><h3>ETFs</h3><p>Seleção de fundos de índice por custo, liquidez e exposição, para diversificar com eficiência.</p></div>
+      <div class="card"><div class="icon">₿</div><h3>Criptoativos</h3><p>Leitura on-chain, ciclos de mercado e gestão de risco para quem quer exposição consciente.</p></div>
+      <div class="card"><div class="icon">🏢</div><h3>Fundos Imobiliários</h3><p>Qualidade dos imóveis, vacância, gestão e dividendos para uma renda passiva consistente.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="como" class="alt">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">Como funciona</span>
+      <h2>Do seu perfil à sua estratégia</h2>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="n">01</div><h3>Diagnóstico</h3><p>Entendemos seus objetivos, prazo e tolerância a risco antes de qualquer número.</p></div>
+      <div class="step"><div class="n">02</div><h3>Análise</h3><p>Cruzamos dados de mercado, fundamentos e cenários para montar uma visão clara.</p></div>
+      <div class="step"><div class="n">03</div><h3>Acompanhamento</h3><p>Relatórios periódicos e revisão da estratégia conforme o mercado muda.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="bot">
+  <div class="wrap bot">
+    <div>
+      <span class="tag soon">Em breve</span>
+      <h2>Orby Bot: nossa análise, no seu ritmo.</h2>
+      <p>Estamos construindo um assistente que leva o método Orby para o seu dia a dia, acompanhando o mercado 24 horas por dia.</p>
+      <ul>
+        <li>Alertas de preço e eventos em ações, ETFs, cripto e FIIs</li>
+        <li>Resumo diário da sua carteira</li>
+        <li>Indicadores e sinais explicados em linguagem simples</li>
+      </ul>
+      <form class="wait" onsubmit="event.preventDefault();this.innerHTML='<p style=&quot;color:#21D19F&quot;>Pronto! Você está na lista de espera. 🚀</p>'">
+        <input type="email" placeholder="Seu melhor e-mail" required>
+        <button class="btn btn-primary">Entrar na lista</button>
+      </form>
+    </div>
+    <div class="terminal">
+      <div class="dots"><i></i><i></i><i></i></div>
+      <div class="m">// orby-bot · resumo diário</div><br>
+      <div><span class="g">▲</span> ETF de S&amp;P 500 &nbsp;<span class="g">+0,8%</span></div>
+      <div><span class="g">▲</span> FII de logística &nbsp;<span class="g">dividendo anunciado</span></div>
+      <div><span class="y">●</span> BTC &nbsp;<span class="y">volatilidade acima da média</span></div>
+      <div><span class="y">●</span> Ação XPTO3 &nbsp;<span class="y">resultado trimestral amanhã</span></div><br>
+      <div class="m">› Nenhuma ação necessária. Carteira dentro do perfil.</div>
+    </div>
+  </div>
+</section>
+
+
+<section id="contato">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">Contato</span>
+      <h2>Vamos conversar sobre seus objetivos</h2>
+    </div>
+    <div class="contact">
+      <a class="wa-big" href="https://wa.me/447385129731?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20a%20Orby%20Investimentos." target="_blank" rel="noopener">
+        <span class="wa-ico">💬</span>
+        <span><b>Chamar no WhatsApp</b><small>WhatsApp · +44 7385 129731</small></span>
+        <span class="arrow">→</span>
+      </a>
+      <p class="or">ou deixe uma mensagem que abrimos a conversa por lá</p>
+      <form id="waForm">
+        <input id="waNome" type="text" placeholder="Seu nome" required>
+        <textarea id="waMsg" placeholder="O que você procura? (ações, cripto, FIIs...)"></textarea>
+        <button class="btn btn-primary">Enviar pelo WhatsApp</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a href="#" class="brand">
+      <svg width="34" height="34"><use href="#logo"/></svg>
+      <div>ORBY<small>INVESTIMENTOS</small></div>
+    </a>
+    <p class="disc">WhatsApp: <a href="https://wa.me/447385129731" target="_blank" style="color:#21D19F">+44 7385 129731</a><br><br>© 2026 Orby Investimentos. Rentabilidade passada não é garantia de rentabilidade futura. Investimentos envolvem riscos, inclusive de perda do capital. Os gráficos desta página são ilustrativos. Este conteúdo não constitui recomendação individual de investimento.</p>
+  </div>
+</footer>
+
+
+<script>
+// atraso escalonado das palavras do título
+document.querySelectorAll('.split i').forEach((w,i)=>w.style.animationDelay=(.25+i*.12)+'s');
+
+// elementos aparecendo ao rolar
+const sel='.head,.card,.step,.bot>div:first-child,.terminal,.contact';
+document.querySelectorAll(sel).forEach(el=>el.classList.add('reveal'));
+document.querySelectorAll('.grid4 .card,.steps .step').forEach((el,i)=>el.style.transitionDelay=(i%4)*.12+'s');
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const t=e.target;t.classList.add('show');io.unobserve(t);setTimeout(()=>t.style.transitionDelay='0s',1400)}}),{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// brilho seguindo o mouse nos cards
+document.querySelectorAll('.card').forEach(c=>c.addEventListener('mousemove',e=>{
+  const r=c.getBoundingClientRect();c.style.setProperty('--mx',(e.clientX-r.left)+'px');c.style.setProperty('--my',(e.clientY-r.top)+'px');
+}));
+
+// barra de progresso da rolagem
+addEventListener('scroll',()=>{const h=document.documentElement;document.getElementById('progress').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%'});
+
+// terminal do bot "digitando"
+const term=document.querySelector('.terminal');
+const lines=[...term.children].filter(el=>!el.classList.contains('dots')&&el.tagName!=='BR');
+lines.forEach(l=>l.classList.add('t-line'));
+const last=lines[lines.length-1];last.insertAdjacentHTML('beforeend',' <span class="cursor"></span>');
+new IntersectionObserver((es,o)=>{if(es[0].isIntersecting){lines.forEach((l,i)=>setTimeout(()=>l.classList.add('on'),400+i*550));o.disconnect()}},{threshold:.4}).observe(term);
+
+
+// gráfico subindo ao vivo
+(function(){
+  const W=400,H=180,N=40,line=document.getElementById('lcLine'),area=document.getElementById('lcArea'),dot=document.getElementById('lcDot'),pct=document.getElementById('pct');
+  let data=[100]; for(let i=1;i<N;i++) data.push(data[i-1]+(Math.random()*3-0.9));
+  const start=data[0];
+  function draw(){
+    const mn=Math.min(...data),mx=Math.max(...data),pad=18;
+    const pts=data.map((v,i)=>[i*(W/(N-1)), H-pad-(v-mn)/((mx-mn)||1)*(H-pad*2)]);
+    const d='M'+pts.map(p=>p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' L');
+    line.setAttribute('d',d);
+    area.setAttribute('d',d+' L'+W+' '+H+' L0 '+H+'Z');
+    const l=pts[pts.length-1]; dot.setAttribute('cx',l[0]); dot.setAttribute('cy',l[1]);
+    const g=(data[data.length-1]/data[0]-1)*100;
+    pct.textContent=(g>=0?'+':'')+g.toFixed(1).replace('.',',')+'%';
+  }
+  draw();
+  setInterval(()=>{data.push(data[data.length-1]+(Math.random()*3-0.9)); data.shift(); draw();},700);
+})();
+
+// formulário abre o WhatsApp com a mensagem pronta
+document.getElementById('waForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const t='Olá! Meu nome é '+document.getElementById('waNome').value+'. '+document.getElementById('waMsg').value;
+  window.open('https://wa.me/447385129731?text='+encodeURIComponent(t),'_blank');
+});
+</script>
+</body>
+</html>
